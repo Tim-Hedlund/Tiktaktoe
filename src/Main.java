@@ -3,17 +3,46 @@ import java.util.Scanner;
 
 public class Main {
 
+    class mark {
+        public int x;
+        public int y;
+        public int player;
+    }
+
     public static Scanner keyboard = new Scanner(System.in);
 
     public static void main(String[] args) {
         ArrayList<String> player1 = new ArrayList<>();
         ArrayList<String> player2 = new ArrayList<>();
 
+        int mapSize = 9;
         int winCon = 3;
-        int[][] marks;
-        printTik(9);
 
-        addBox();
+        printTik(mapSize);
+
+        mark[] marks = new mark[mapSize * mapSize];
+        createMarks(marks, mapSize);
+
+        addBox(marks);
+
+    }
+
+    private static void createMarks(mark[] marks, int mapSize) {
+        //counts left to right, then switches row and continues
+
+        //column switcher
+        for (int y = 0; y < mapSize; y++) {
+
+            //row switcher
+            for (int x = 0; x < mapSize; x++) {
+
+                marks[y * mapSize + x].y = y;
+                marks[y * mapSize + x].x = x;
+                marks[y * mapSize + x].player = 0;
+
+            }
+
+        }
 
     }
 
@@ -56,13 +85,16 @@ public class Main {
         return numbers[num];
     }
 
-    private static int[] addBox() {
+    private static int[] addBox(mark[] marks) {
 
         System.out.println("write where you want your mark to be like this: B:12");
         String boxLocation = keyboard.nextLine().trim().toUpperCase();
 
+        int[] testMark;
+
         while (true) {
-            if (checkInputCorrect(boxLocation, currentMarks)) {
+            testMark = checkInputCorrect(boxLocation, marks);
+            if (testMark[0] != -1) {
                 break;
             } else {
                 System.out.println("ERROR: you did not input correctly");
@@ -70,19 +102,22 @@ public class Main {
                 boxLocation = keyboard.nextLine().trim().toUpperCase();
             }
 
-
         }
 
-        return new int[]{1, 1};
+        return testMark;
 
     }
 
-    private static int[] checkInputCorrect(String input, int[][] currentMarks) {
+    private static int[] checkInputCorrect(String input, mark[] marks) {
 
         //1. has an x and y
         int[] location = checkInputNormal(input);
         if (location[0] == -1) {
             return location;
+        }
+
+        if (hasNeighbor(location, marks)) {
+
         }
 
 
@@ -91,6 +126,20 @@ public class Main {
         //b. is inside mapSize in x and y
         //c. is beside other box
         System.out.println("REAL");
+
+    }
+
+    private static boolean hasNeighbor(int[] location, mark[] marks) {
+
+        int y = location[0];
+        int x = location[1];
+
+        int mapSize = (int) Math.round(Math.sqrt(marks.length));
+
+        int markLocation = y * mapSize + x;
+
+        int[] neighborIndexes = new int[8];
+
 
     }
 
@@ -139,6 +188,7 @@ public class Main {
 
     }
 
+//s3wcyd5 english code
 }
 
 
