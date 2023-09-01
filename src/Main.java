@@ -12,8 +12,6 @@ public class Main {
     public static Scanner keyboard = new Scanner(System.in);
 
     public static void main(String[] args) {
-        ArrayList<String> player1 = new ArrayList<>();
-        ArrayList<String> player2 = new ArrayList<>();
 
         int mapSize = 9;
         int winCon = 3;
@@ -85,16 +83,16 @@ public class Main {
         return numbers[num];
     }
 
-    private static int[] addBox(mark[] marks) {
+    private static void addBox(mark[] marks) {
 
         System.out.println("write where you want your mark to be like this: B:12");
         String boxLocation = keyboard.nextLine().trim().toUpperCase();
 
-        int[] testMark;
+        int[] currentMark;
 
         while (true) {
-            testMark = checkInputCorrect(boxLocation, marks);
-            if (testMark[0] != -1) {
+            currentMark = checkInputCorrect(boxLocation, marks);
+            if (currentMark[0] != -1) {
                 break;
             } else {
                 System.out.println("ERROR: you did not input correctly");
@@ -104,11 +102,12 @@ public class Main {
 
         }
 
-        return testMark;
 
     }
 
     private static int[] checkInputCorrect(String input, mark[] marks) {
+
+        int mapSize = (int) Math.round(Math.sqrt(marks.length));
 
         //1. has an x and y
         int[] location = checkInputNormal(input);
@@ -116,7 +115,9 @@ public class Main {
             return location;
         }
 
-        if (hasNeighbor(location, marks)) {
+        int border = -1;
+
+        if (hasNeighbor(location, marks, mapSize)) {
 
         }
 
@@ -129,17 +130,33 @@ public class Main {
 
     }
 
-    private static boolean hasNeighbor(int[] location, mark[] marks) {
+    private static boolean hasNeighbor(int[] location, mark[] marks, int mapSize) {
 
         int y = location[0];
         int x = location[1];
 
-        int mapSize = (int) Math.round(Math.sqrt(marks.length));
+        mark[] neighborMarks = new mark[9];
 
-        int markLocation = y * mapSize + x;
+        for (int i = 0; i < 3; i++) {
 
-        int[] neighborIndexes = new int[8];
+            for (int j = 0; j < 3; j++) {
 
+                neighborMarks[i * 3 + j].x = x + j - 1;
+                neighborMarks[i * 3 + j].y = y + i - 1;
+
+            }
+
+        }
+
+        for (int i = 0; i < 9; i++) {
+
+            if (neighborMarks[i].x < 0 || neighborMarks[i].x > mapSize - 1) {
+                neighborMarks[i] = null;
+            } else if (neighborMarks[i].y < 0 || neighborMarks[i].y > mapSize - 1) {
+                neighborMarks[i] = null;
+            }
+
+        }
 
     }
 
