@@ -119,14 +119,13 @@ public class Main {
 
         if (hasNeighbor(location, marks, mapSize)) {
 
+            return location;
+
+        } else {
+
+            return new int[]{-1, 0};
+
         }
-
-
-        //2. create array of legal moves that
-        //a. does not overlap with another box
-        //b. is inside mapSize in x and y
-        //c. is beside other box
-        System.out.println("REAL");
 
     }
 
@@ -148,6 +147,9 @@ public class Main {
 
         }
 
+        neighborMarks[5] = null;
+
+
         for (int i = 0; i < 9; i++) {
 
             if (neighborMarks[i].x < 0 || neighborMarks[i].x > mapSize - 1) {
@@ -157,6 +159,31 @@ public class Main {
             }
 
         }
+
+
+        for (mark neighborMark : neighborMarks) {
+
+            for (mark mark : marks) {
+
+                if (neighborMark == null) {
+                    break;
+                }
+
+                if (neighborMark.y == mark.y && neighborMark.x == mark.x) {
+
+                    if (mark.player != 0) {
+
+                        return false;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return true;
 
     }
 
