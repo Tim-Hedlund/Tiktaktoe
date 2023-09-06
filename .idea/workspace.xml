@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa7b1b64-5b42-4b0c-8a56-4755c5718ee4" name="Changes" comment="Fixade några saker....">
+    <list default="true" id="fa7b1b64-5b42-4b0c-8a56-4755c5718ee4" name="Changes" comment="fixade lite med input checkern">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
@@ -63,7 +63,7 @@
       <workItem from="1692793993608" duration="1406000" />
       <workItem from="1692963282491" duration="236000" />
       <workItem from="1692963710326" duration="4775000" />
-      <workItem from="1693381831575" duration="10969000" />
+      <workItem from="1693381831575" duration="21722000" />
     </task>
     <task id="LOCAL-00001" summary="HIHIHIHA">
       <created>1693208423436</created>
@@ -79,7 +79,21 @@
       <option name="project" value="LOCAL" />
       <updated>1693394357410</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fixade lite med input checkern">
+      <created>1693809567559</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1693809567559</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fixade lite med input checkern">
+      <created>1693813054755</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1693813054755</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -88,6 +102,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="HIHIHIHA" />
     <MESSAGE value="Fixade några saker...." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixade några saker...." />
+    <MESSAGE value="fixade lite med input checkern" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixade lite med input checkern" />
   </component>
 </project>

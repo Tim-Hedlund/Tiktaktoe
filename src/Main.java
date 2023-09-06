@@ -1,11 +1,10 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
-    class mark {
-        public int x;
-        public int y;
+    static class mark {
+        public int x = 0;
+        public int y = 0;
         public int player;
     }
 
@@ -16,17 +15,20 @@ public class Main {
         int mapSize = 9;
         int winCon = 3;
 
-        printTik(mapSize);
+        mark[] marks = createMarks(mapSize);
 
-        mark[] marks = new mark[mapSize * mapSize];
-        createMarks(marks, mapSize);
 
-        addBox(marks);
+        while (true) {
+            printTik(mapSize, marks);
+            addBox(marks);
+        }
 
     }
 
-    private static void createMarks(mark[] marks, int mapSize) {
+    private static mark[] createMarks(int mapSize) {
         //counts left to right, then switches row and continues
+
+        mark[] marks = new mark[mapSize * mapSize];
 
         //column switcher
         for (int y = 0; y < mapSize; y++) {
@@ -34,17 +36,21 @@ public class Main {
             //row switcher
             for (int x = 0; x < mapSize; x++) {
 
+                marks[y * mapSize + x] = new mark();
+
                 marks[y * mapSize + x].y = y;
                 marks[y * mapSize + x].x = x;
-                marks[y * mapSize + x].player = 0;
+                marks[y * mapSize + x].player = -1;
 
             }
 
         }
 
+        return marks;
+
     }
 
-    private static void printTik(int size) {
+    private static void printTik(int size, mark[] marks) {
 
         if (size > 26) {
             System.out.println("ERROR: Size = " + size + " Size cannot be larger than 26");
@@ -63,7 +69,8 @@ public class Main {
         for (int i = 0; i < size; i++) {
             System.out.print(i + 1);
             for (int j = 0; j < size; j++) {
-                System.out.print(" =");
+                System.out.print(" ");
+                printMark(marks, i, j);
             }
             System.out.println();
         }
@@ -77,13 +84,34 @@ public class Main {
 
     }
 
+    private static void printMark(mark[] marks, int row, int column) {
+
+        double marksLength = marks.length;
+        int rowLength = (int) (Math.round(Math.sqrt(marksLength)));
+
+        if (marks[row * rowLength + column].player == -1) {
+
+            System.out.print("=");
+
+        } else if (marks[row * rowLength + column].player == 0) {
+
+            System.out.print("X");
+
+        } else {
+
+            System.out.print("O");
+
+        }
+
+    }
+
     private static Character numLetter(int num) {
         char[] numbers = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
         return numbers[num];
     }
 
-    private static void addBox(mark[] marks) {
+    private static int[] addBox(mark[] marks) {
 
         System.out.println("write where you want your mark to be like this: B:12");
         String boxLocation = keyboard.nextLine().trim().toUpperCase();
@@ -92,8 +120,8 @@ public class Main {
 
         while (true) {
             currentMark = checkInputCorrect(boxLocation, marks);
-            if (currentMark[0] != -1) {
-                break;
+            if (currentMark[0] == -1) {
+                return currentMark;
             } else {
                 System.out.println("ERROR: you did not input correctly");
                 System.out.println("write where you want your mark to be like this: B:12");
@@ -101,7 +129,6 @@ public class Main {
             }
 
         }
-
 
     }
 
@@ -114,8 +141,6 @@ public class Main {
         if (location[0] == -1) {
             return location;
         }
-
-        int border = -1;
 
         if (hasNeighbor(location, marks, mapSize)) {
 
@@ -140,6 +165,8 @@ public class Main {
 
             for (int j = 0; j < 3; j++) {
 
+                neighborMarks[i * 3 + j] = new mark();
+
                 neighborMarks[i * 3 + j].x = x + j - 1;
                 neighborMarks[i * 3 + j].y = y + i - 1;
 
@@ -152,14 +179,17 @@ public class Main {
 
         for (int i = 0; i < 9; i++) {
 
-            if (neighborMarks[i].x < 0 || neighborMarks[i].x > mapSize - 1) {
-                neighborMarks[i] = null;
-            } else if (neighborMarks[i].y < 0 || neighborMarks[i].y > mapSize - 1) {
-                neighborMarks[i] = null;
+
+            if (neighborMarks[i] != null) {
+                if (neighborMarks[i].x < 0 || neighborMarks[i].x > mapSize - 1) {
+                    neighborMarks[i] = null;
+                } else if (neighborMarks[i].y < 0 || neighborMarks[i].y > mapSize - 1) {
+                    neighborMarks[i] = null;
+                }
             }
 
-        }
 
+        }
 
         for (mark neighborMark : neighborMarks) {
 
@@ -232,7 +262,6 @@ public class Main {
 
     }
 
-//s3wcyd5 english code
 }
 
 
